@@ -53,6 +53,7 @@ dotfiles_files:
   - .profile
   - .gitconfig
   - .config/starship.toml
+```
 
 ## Design Principles
 
