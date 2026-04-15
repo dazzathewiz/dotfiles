@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Finder
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Keep Finder list view as default for new windows/search where practical
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+defaults write com.apple.finder FXPreferredSearchViewStyle -string "Nlsv"
+
+# Dock
+defaults write com.apple.dock autohide -bool false
+defaults write com.apple.dock magnification -bool false
+defaults write com.apple.dock showhidden -bool true
+
+# Hot corners
+# Current values were not included in the pasted output, so these are placeholders.
+# Replace these with your actual values if different.
+# 0 = no-op
+# 2 = Mission Control
+# 3 = Application Windows
+# 4 = Desktop
+# 5 = Start Screen Saver
+# 6 = Disable Screen Saver
+# 10 = Put Display to Sleep
+# 11 = Launchpad
+# 12 = Notification Center
+# 13 = Lock Screen
+# 14 = Quick Note
+
+# Hot corners
+# Top left
+defaults write com.apple.dock wvous-tl-corner -int 0
+defaults write com.apple.dock wvous-tl-modifier -int 0
+
+# Top right
+defaults write com.apple.dock wvous-tr-corner -int 0
+defaults write com.apple.dock wvous-tr-modifier -int 0
+
+# Bottom left → Sleep display
+defaults write com.apple.dock wvous-bl-corner -int 10
+defaults write com.apple.dock wvous-bl-modifier -int 0
+
+# Bottom right → App windows (Expose)
+defaults write com.apple.dock wvous-br-corner -int 3
+defaults write com.apple.dock wvous-br-modifier -int 0
+
+# Trackpad
+# Two-finger secondary click
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+
+# Tap to click
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+
+# Natural scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
+
+# Apply changes
+if [[ ! ($* == *--no-restart*) ]]; then
+  for app in "Dock" "Finder" "SystemUIServer"; do
+    killall "$app" >/dev/null 2>&1 || true
+  done
+fi
+
+echo "macOS defaults applied."
