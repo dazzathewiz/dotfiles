@@ -4,13 +4,28 @@ set -euo pipefail
 # Finder
 defaults write com.apple.finder ShowStatusBar -bool true
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# Avoid .DS_Store on network drives
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Disable creation on USB drives too
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Keep Finder list view as default for new windows/search where practical
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 defaults write com.apple.finder FXPreferredSearchViewStyle -string "Nlsv"
 
+# Automatically switch light/dark mode
+defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
+
 # Dock
+
+# Dock icon size (current machine shows tilesize = 93)
+defaults write com.apple.dock tilesize -int 93
+
+# Show recent apps in Dock (current machine has a recent-apps section)
+defaults write com.apple.dock show-recents -bool true
+
 defaults write com.apple.dock autohide -bool false
 defaults write com.apple.dock magnification -bool false
 defaults write com.apple.dock showhidden -bool true
@@ -48,16 +63,50 @@ defaults write com.apple.dock wvous-br-corner -int 3
 defaults write com.apple.dock wvous-br-modifier -int 0
 
 # Trackpad
-# Two-finger secondary click
-defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
 
 # Tap to click
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 
+# Two-finger secondary click
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+
+# Three-finger drag
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+
+# Four-finger swipe (spaces / desktops)
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerHorizSwipeGesture -int 2
+
+# Four-finger swipe (Mission Control / App Exposé)
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerVertSwipeGesture -int 2
+
 # Natural scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
+
+# Pinch to zoom
+defaults write com.apple.AppleMultitouchTrackpad TrackpadPinch -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadPinch -bool true
+
+# Rotate gesture
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRotate -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRotate -bool true
+
+# Momentum scrolling
+defaults write com.apple.AppleMultitouchTrackpad TrackpadMomentumScroll -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadMomentumScroll -bool true
+
+# Trackpad tracking speed
+defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
+
+# Trackpad scroll speed
+defaults write NSGlobalDomain com.apple.trackpad.scrolling -float 0.3125
+
+# Force click enabled
+defaults write NSGlobalDomain com.apple.trackpad.forceClick -bool true
 
 # Apply changes
 if [[ ! ($* == *--no-restart*) ]]; then

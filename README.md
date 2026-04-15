@@ -23,6 +23,7 @@ The goal is to provide a **reproducible, minimal, and portable** setup for new m
 | `.profile` | Environment variables (e.g. SOPS configuration) |
 | `.gitconfig` | Git identity and defaults |
 | `.config/starship.toml` | Prompt configuration for `starship` |
+| `.osx` | OSX defaults configuration |
 
 ---
 
@@ -53,7 +54,78 @@ dotfiles_files:
   - .profile
   - .gitconfig
   - .config/starship.toml
+  - .osx
 ```
+
+## ⚠️ Not Managed by `.osx`
+
+The following macOS settings are **intentionally not automated**. These are either:
+
+- user preference / low-value to codify
+- brittle across macOS versions
+- controlled by third-party apps
+- or not reliably configurable via `defaults`
+
+### 🍎 Menu Bar (Status Bar)
+
+Menu bar configuration is **not enforced**.
+
+This includes:
+- Visibility of system icons (Wi-Fi, Bluetooth, Battery, etc.)
+- Ordering/position of icons
+- Control Center modules (Focus, Now Playing, etc.)
+- Third-party menu bar apps (e.g. VPN clients, utilities)
+
+**Reason:**
+- Apple does not provide stable automation interfaces
+- Settings frequently change between macOS versions
+- Third-party apps manage their own menu bar presence
+
+**Recommended approach:**
+- Configure manually via System Settings → Control Center
+- Treat as personal preference
+
+---
+
+### 🖥️ Desktop / Mission Control Layout
+
+Not enforced:
+- Number of desktops (Spaces)
+- Assignment of apps to specific desktops
+- Desktop wallpaper per Space
+
+**Reason:**
+- Highly personal workflow preference
+- Dynamic by nature
+- Not reliably scriptable
+
+---
+
+### ⌨️ Keyboard & Input Edge Cases
+
+Not explicitly configured unless added manually:
+- Key repeat rates
+- Input sources / languages
+- Modifier key remapping
+
+**Reason:**
+- Defaults are acceptable
+- Preferences vary between users/devices
+
+---
+
+### 📸 Screenshot Location
+
+Screenshot location is not set.
+
+**Default behaviour:**
+- Saves to Desktop
+
+**Reason:**
+- Low impact
+- Easy to change if desired
+
+---
 
 ## Design Principles
 
