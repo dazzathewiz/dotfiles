@@ -2,6 +2,9 @@
 set -euo pipefail
 
 # Require password immediately when screen sleeps or screensaver activates
+# Note: defaults write com.apple.screensaver no longer works in macOS Sequoia+
+# sysadminctl is the correct mechanism and requires admin privileges
+# sudo sysadminctl -screenLock immediate
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
